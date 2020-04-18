@@ -17,7 +17,12 @@ const howareyou = [
   "feeling well, thanks",
 ];
 
-const greetings = ["good evening David"];
+const greetings = {
+  morning: ["good morning David"],
+  afternoon: ["good afternoon David"],
+  evening: ["good evening David"],
+  night: ["you are up late David"],
+};
 
 const mood = [
   "happy",
@@ -98,6 +103,7 @@ function readOutLoud(message) {
   const speech = new SpeechSynthesisUtterance();
 
   if (message.includes("how are you")) {
+    // hook up to external responses
     let finalText;
     if (moodLevel > 19) {
       finalText = "good";
@@ -112,7 +118,24 @@ function readOutLoud(message) {
     mood1();
     log.push(finalText);
   } else if (message.includes("hello")) {
-    const finalText = greetings[Math.floor(Math.random() * greetings.length)];
+    let myDate = new Date();
+    let d = myDate.getHours();
+    console.log(d);
+    let responseKey;
+    if (d > 3 && d <= 11) {
+      responseKey = "morning";
+    } else if (d > 11 && d <= 16) {
+      responseKey = "afternoon";
+    } else if (d > 16 && d <= 22) {
+      responseKey = "evening";
+    } else {
+      responseKey = "night";
+    }
+
+    const finalText =
+      greetings[responseKey][
+        Math.floor(Math.random() * greetings[responseKey].length)
+      ];
     speech.text = finalText;
     log.push(finalText);
   } else if (message.includes("what is your mood level")) {
