@@ -20,7 +20,12 @@ const howareyou = [
 const greetings = {
   morning: ["good morning David"],
   afternoon: ["good afternoon David"],
-  evening: ["good evening David"],
+  evening: [
+    "good evening David",
+    "what shall we do this evening?",
+    "hi",
+    "lets get to work!",
+  ],
   night: ["you are up late David"],
 };
 
@@ -59,6 +64,7 @@ btn.addEventListener("click", () => {
 });
 
 let log = [];
+let convoLog = [];
 let moodLevel = 0;
 let recentMoodLog = [0, 0, 0];
 let recentMood = 0;
@@ -117,6 +123,7 @@ function readOutLoud(message) {
     }
     mood1();
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
   } else if (message.includes("hello")) {
     let myDate = new Date();
     let d = myDate.getHours();
@@ -138,46 +145,61 @@ function readOutLoud(message) {
       ];
     speech.text = finalText;
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
   } else if (message.includes("what is your mood level")) {
     const finalText = moodLevel;
     speech.text = finalText;
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
   } else if (message.includes("what is your recent mood level")) {
     const finalText = recentMood;
     speech.text = finalText;
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
   } else if (message.includes("say that again")) {
     const finalText = `I said ${log[log.length - 1]}`;
     speech.text = finalText;
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
+  } else if (message.includes("what do you think I said")) {
+    const finalText = `I think you said ${convoLog[convoLog.length - 2]}`;
+    speech.text = finalText;
+    log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
   } else if (message.includes("good job")) {
     const finalText =
       appreciation[Math.floor(Math.random() * appreciation.length)];
     speech.text = finalText;
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
     mood10();
   } else if (message.includes("not good enough")) {
     const finalText = simpleExcl[Math.floor(Math.random() * simpleExcl.length)];
     speech.text = finalText;
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
     moodLess10();
   } else if (message.includes("why")) {
     const finalText = "I guess something went wrong";
     speech.text = finalText;
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
   } else if (message.includes("tell me a memory")) {
     let mems = Object.keys(memories);
     let mem = mems[Math.floor(Math.random() * mems.length)];
     const finalText = `I remember when ${memories[mem].memory}`;
     speech.text = finalText;
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
   } else {
     const finalText = "i dont know what you said";
     speech.text = finalText;
     log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
   }
 
   console.log(log);
+  console.log(convoLog);
   console.log(moodLevel);
   console.log(recentMoodLog);
   console.log(recentMood);
