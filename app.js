@@ -86,13 +86,17 @@ let memories = {
     date: "18th April 2020",
     memory: "I was created",
   },
-  mood: {
+  moodLog: {
     date: "18th April 2020",
     memory: "You added my mood functionality",
   },
   memory: {
     date: "18th April 2020",
     memory: "you gave me memories",
+  },
+  listItems: {
+    date: "18th April 2020",
+    memory: "you programmed me to render list items",
   },
 };
 
