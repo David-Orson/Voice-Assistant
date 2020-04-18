@@ -58,21 +58,40 @@ let moodLevel = 0;
 let recentMoodLog = [0, 0, 0];
 let recentMood = 0;
 let memories = {
-  memories: {
-    created: {
-      date: "18th April 2020",
-      memory: "I was created",
-    },
-    mood: {
-      date: "18th April 2020",
-      memory: "You added my mood functionality",
-    },
-    memory: {
-      date: "18th April 2020",
-      memory: "you gave me memories",
-    },
+  created: {
+    date: "18th April 2020",
+    memory: "I was created",
+  },
+  mood: {
+    date: "18th April 2020",
+    memory: "You added my mood functionality",
+  },
+  memory: {
+    date: "18th April 2020",
+    memory: "you gave me memories",
   },
 };
+
+function mood1() {
+  moodLevel += 1;
+  let oldMood = recentMoodLog.shift();
+  recentMoodLog.push(oldMood + 1);
+  recentMood = recentMoodLog.reduce((a, b) => a + b);
+}
+
+function mood10() {
+  moodLevel += 10;
+  recentMoodLog.push(10);
+  recentMoodLog.shift();
+  recentMood = recentMoodLog.reduce((a, b) => a + b);
+}
+
+function moodLess10() {
+  moodLevel -= 10;
+  recentMoodLog.push(-10);
+  recentMoodLog.shift();
+  recentMood = recentMoodLog.reduce((a, b) => a + b);
+}
 
 function readOutLoud(message) {
   const voices = window.speechSynthesis.getVoices();
@@ -90,12 +109,8 @@ function readOutLoud(message) {
       finalText = "not great";
       speech.text = finalText;
     }
-
+    mood1();
     log.push(finalText);
-    moodLevel += 1;
-    recentMoodLog.push(1);
-    recentMoodLog.shift();
-    recentMood = recentMoodLog.reduce((a, b) => a + b);
   } else if (message.includes("hello")) {
     const finalText = greetings[Math.floor(Math.random() * greetings.length)];
     speech.text = finalText;
@@ -117,20 +132,20 @@ function readOutLoud(message) {
       appreciation[Math.floor(Math.random() * appreciation.length)];
     speech.text = finalText;
     log.push(finalText);
-    moodLevel += 10;
-    recentMoodLog.push(10);
-    recentMoodLog.shift();
-    recentMood = recentMoodLog.reduce((a, b) => a + b);
+    mood10();
   } else if (message.includes("not good enough")) {
     const finalText = simpleExcl[Math.floor(Math.random() * simpleExcl.length)];
     speech.text = finalText;
     log.push(finalText);
-    moodLevel -= 10;
-    recentMoodLog.push(-10);
-    recentMoodLog.shift();
-    recentMood = recentMoodLog.reduce((a, b) => a + b);
+    moodLess10();
   } else if (message.includes("why")) {
     const finalText = "I guess something went wrong";
+    speech.text = finalText;
+    log.push(finalText);
+  } else if (message.includes("tell me a memory")) {
+    let mems = Object.keys(memories);
+    let mem = mems[Math.floor(Math.random() * mems.length)];
+    const finalText = `I remember when ${memories[mem].memory}`;
     speech.text = finalText;
     log.push(finalText);
   } else {
