@@ -1,5 +1,6 @@
 const btn = document.querySelector(".talk");
 const content = document.querySelector(".content");
+const todoList = document.querySelector(".todo-list");
 
 let voices;
 
@@ -8,6 +9,18 @@ function setVoice() {
 }
 
 setVoice();
+
+function todoRender(message) {
+  let ul = document.createElement("ul");
+  let content = document.createElement("li");
+  let listTxt = message.slice(24);
+
+  content.textContent = listTxt;
+
+  ul.appendChild(content);
+
+  todoList.appendChild(ul);
+}
 
 const howareyou = [
   "I'm doing fine, thanks",
@@ -188,6 +201,12 @@ function readOutLoud(message) {
     let mems = Object.keys(memories);
     let mem = mems[Math.floor(Math.random() * mems.length)];
     const finalText = `I remember when ${memories[mem].memory}`;
+    speech.text = finalText;
+    log.push(finalText);
+    convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
+  } else if (message.includes("make a list item")) {
+    todoRender(message);
+    const finalText = "Anything else?";
     speech.text = finalText;
     log.push(finalText);
     convoLog.push(`Orson: ${message}`, `Bot: ${finalText}`);
