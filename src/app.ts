@@ -1,3 +1,6 @@
+import { setup, voiceSetup } from "./components/helpers.js";
+import responseFunc from "./components/conditions.js";
+
 const btn: any = document.querySelector(".talk");
 const speechToText: any = document.querySelector(".speech-to-text");
 
@@ -6,11 +9,7 @@ const recognition = new MySpeechRecognition();
 
 let voices: any;
 
-function setVoice() {
-  voices = window.speechSynthesis.getVoices();
-}
-
-setVoice();
+setup();
 
 recognition.onstart = function () {
   console.log("listening");
@@ -34,16 +33,9 @@ btn.addEventListener("click", () => {
 });
 
 function readOutLoud(message: any) {
-  voices = window.speechSynthesis.getVoices();
   const speech = new SpeechSynthesisUtterance();
-  speech.text = message;
-
-  speech.volume = 1;
-  speech.rate = 1;
-  speech.pitch = 2;
-
-  speech.voice = voices[2];
-  console.log(voices);
+  voiceSetup(speech, voices);
+  responseFunc(message, speech);
 
   window.speechSynthesis.speak(speech);
   setTimeout(() => {
