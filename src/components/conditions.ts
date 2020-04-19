@@ -1,6 +1,6 @@
 import { mood1 /* mood10, moodLess10 */ } from "./mood.js";
 import { moodLevels, todoList, subject, indexer, todoObj } from "../app.js";
-import { todoDelete, objRender } from "./renderers.js";
+import { objDelete, objRender } from "./renderers.js";
 
 function responseFunc(message: any, speech: any, subject: any, todoObj: any) {
   if (subject[0] == "list") {
@@ -18,10 +18,11 @@ function responseFunc(message: any, speech: any, subject: any, todoObj: any) {
     } else if (message.includes("make a list item")) {
       speech.text = "Anything else?";
       subject.push("list");
-      let listValue = message.slice(23);
+      let listValue = message.slice(24);
       todoObj[listValue] = listValue;
     } else if (message.includes("delete list item")) {
-      // todoDelete(message);
+      objDelete(message, todoObj);
+      speech.text = "deleted";
     } else {
       speech.text = "I don't know what you said";
     }
