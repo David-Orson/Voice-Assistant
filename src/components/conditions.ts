@@ -3,9 +3,15 @@ import { moodLevels } from "../app.js";
 
 function responseFunc(message: any, speech: any) {
   if (message.includes("how are you")) {
-    const response: any = "good";
-    speech.text = response;
+    let response: any;
     mood1();
+    if (moodLevels.moodLevel > 1) {
+      response = "good";
+    } else {
+      response = "ok";
+    }
+
+    speech.text = response;
   } else {
     speech.text = "I don't know what you said";
   }

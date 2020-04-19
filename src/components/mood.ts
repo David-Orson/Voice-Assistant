@@ -2,9 +2,11 @@ import { moodLevels } from "../app.js";
 
 export function mood1() {
   moodLevels.moodLevel += 1;
-  /* let oldMood: any = recentMoodLog.shift(); */
-  /* recentMoodLog.push(oldMood + 1);
-  recentMood = recentMoodLog.reduce((a, b) => a + b); */
+  let oldMood: any = moodLevels.recentMoodLog.shift();
+  moodLevels.recentMoodLog.push(oldMood + 1);
+  moodLevels.recentMood = moodLevels.recentMoodLog.reduce(
+    (a: any, b: any) => a + b
+  );
 }
 
 /* export function mood10() {

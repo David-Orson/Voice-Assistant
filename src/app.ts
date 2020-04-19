@@ -15,9 +15,9 @@ let log: any = [];
 let convoLog: any = [];
 export let moodLevels: any = {
   moodLevel: 0,
+  recentMood: 0,
+  recentMoodLog: [0, 0, 0],
 };
-let recentMoodLog = [0, 0, 0];
-let recentMood = 0;
 
 recognition.onstart = () => {
   console.log("listening");
@@ -51,6 +51,8 @@ function readOutLoud(message: any) {
   console.log(log);
   console.log(convoLog);
   console.log(moodLevels.moodLevel);
+  console.log(moodLevels.recentMood);
+  console.log(moodLevels.recentMoodLog);
 
   window.speechSynthesis.speak(speech);
   setTimeout(() => {

@@ -10,9 +10,9 @@ let log = [];
 let convoLog = [];
 export let moodLevels = {
     moodLevel: 0,
+    recentMood: 0,
+    recentMoodLog: [0, 0, 0],
 };
-let recentMoodLog = [0, 0, 0];
-let recentMood = 0;
 recognition.onstart = () => {
     console.log("listening");
     setTimeout(() => {
@@ -38,6 +38,8 @@ function readOutLoud(message) {
     console.log(log);
     console.log(convoLog);
     console.log(moodLevels.moodLevel);
+    console.log(moodLevels.recentMood);
+    console.log(moodLevels.recentMoodLog);
     window.speechSynthesis.speak(speech);
     setTimeout(() => {
         recognition.start();
