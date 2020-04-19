@@ -1,13 +1,13 @@
 import { mood1 /* mood10, moodLess10 */ } from "./mood.js";
 import { moodLevels, todoList, subject } from "../app.js";
-import { todoRender } from "./renderers.js";
+import { todoRender, todoDelete } from "./renderers.js";
 
 function responseFunc(message: any, speech: any, subject: any) {
   if (subject[0] == "list") {
     if (message.includes("and")) {
       speech.text = "sure";
       todoRender(message, todoList, 4);
-    } else if (message.includes("forget about it")) {
+    } else if (message.includes("no")) {
       speech.text = "no problem";
       subject.pop();
     } else {
@@ -28,6 +28,8 @@ function responseFunc(message: any, speech: any, subject: any) {
       todoRender(message, todoList, 24);
       speech.text = "Anything else?";
       subject.push("list");
+    } else if (message.includes("delete list item")) {
+      todoDelete();
     } else {
       speech.text = "I don't know what you said";
     }
