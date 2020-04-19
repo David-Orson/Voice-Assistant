@@ -42,14 +42,17 @@ btn.addEventListener("click", () => {
   recognition.start();
 });
 
+export let subject: any = [];
+
 function readOutLoud(message: any) {
   const speech = new SpeechSynthesisUtterance();
   voiceSetup(speech, voices);
-  responseFunc(message, speech);
+  responseFunc(message, speech, subject);
 
   convoLog.push(`Orson: ${message}`, `Bot: ${speech.text}`);
   log.push(speech.text);
 
+  console.log(subject);
   console.log(log);
   console.log(convoLog);
   console.log(moodLevels.moodLevel);
@@ -63,6 +66,6 @@ function readOutLoud(message: any) {
 }
 
 // ToDo
-// Render List
+// hide/display list
 // Time based Logic
 // Memories
