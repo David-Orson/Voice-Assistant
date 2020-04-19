@@ -2,6 +2,7 @@ import { setup, voiceSetup } from "./components/helpers.js";
 import responseFunc from "./components/conditions.js";
 const btn = document.querySelector(".talk");
 const speechToText = document.querySelector(".speech-to-text");
+export const todoList = document.querySelector(".todo-list");
 const MySpeechRecognition = window.webkitSpeechRecognition;
 const recognition = new MySpeechRecognition();
 let voices;
@@ -45,3 +46,7 @@ function readOutLoud(message) {
         recognition.start();
     }, 1000);
 }
+// ToDo
+// Render List
+// Time based Logic
+// Memories

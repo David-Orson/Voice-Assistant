@@ -4,6 +4,8 @@ import responseFunc from "./components/conditions.js";
 const btn: any = document.querySelector(".talk");
 const speechToText: any = document.querySelector(".speech-to-text");
 
+export const todoList = document.querySelector(".todo-list");
+
 const MySpeechRecognition = window.webkitSpeechRecognition;
 const recognition = new MySpeechRecognition();
 
@@ -59,3 +61,8 @@ function readOutLoud(message: any) {
     recognition.start();
   }, 1000);
 }
+
+// ToDo
+// Render List
+// Time based Logic
+// Memories
