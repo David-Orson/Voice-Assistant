@@ -14,6 +14,11 @@ export let moodLevels = {
     recentMood: 0,
     recentMoodLog: [0, 0, 0],
 };
+/* export let listLog: any = []; */
+export let indexer = 0;
+export let todoObj = {
+    trash: "trash",
+};
 recognition.onstart = () => {
     console.log("listening");
     setTimeout(() => {
@@ -34,7 +39,7 @@ export let subject = [];
 function readOutLoud(message) {
     const speech = new SpeechSynthesisUtterance();
     voiceSetup(speech, voices);
-    responseFunc(message, speech, subject);
+    responseFunc(message, speech, subject, todoObj);
     convoLog.push(`Orson: ${message}`, `Bot: ${speech.text}`);
     log.push(speech.text);
     console.log(subject);
@@ -43,6 +48,7 @@ function readOutLoud(message) {
     console.log(moodLevels.moodLevel);
     console.log(moodLevels.recentMood);
     console.log(moodLevels.recentMoodLog);
+    console.log(todoObj);
     window.speechSynthesis.speak(speech);
     setTimeout(() => {
         recognition.start();

@@ -1,5 +1,6 @@
 import { setup, voiceSetup } from "./components/helpers.js";
 import responseFunc from "./components/conditions.js";
+import { objRender } from "./components/renderers.js";
 
 const btn: any = document.querySelector(".talk");
 const speechToText: any = document.querySelector(".speech-to-text");
@@ -19,6 +20,11 @@ export let moodLevels: any = {
   moodLevel: 0,
   recentMood: 0,
   recentMoodLog: [0, 0, 0],
+};
+/* export let listLog: any = []; */
+export let indexer: number = 0;
+export let todoObj: any = {
+  trash: "trash",
 };
 
 recognition.onstart = () => {
@@ -47,7 +53,7 @@ export let subject: any = [];
 function readOutLoud(message: any) {
   const speech = new SpeechSynthesisUtterance();
   voiceSetup(speech, voices);
-  responseFunc(message, speech, subject);
+  responseFunc(message, speech, subject, todoObj);
 
   convoLog.push(`Orson: ${message}`, `Bot: ${speech.text}`);
   log.push(speech.text);
@@ -58,6 +64,7 @@ function readOutLoud(message: any) {
   console.log(moodLevels.moodLevel);
   console.log(moodLevels.recentMood);
   console.log(moodLevels.recentMoodLog);
+  console.log(todoObj);
 
   window.speechSynthesis.speak(speech);
   setTimeout(() => {
