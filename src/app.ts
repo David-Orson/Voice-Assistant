@@ -11,14 +11,22 @@ let voices: any;
 
 setup();
 
-recognition.onstart = function () {
+let log: any = [];
+let convoLog: any = [];
+export let moodLevels: any = {
+  moodLevel: 0,
+};
+let recentMoodLog = [0, 0, 0];
+let recentMood = 0;
+
+recognition.onstart = () => {
   console.log("listening");
   setTimeout(() => {
     recognition.start();
   }, 6000);
 };
 
-recognition.onresult = function (event: any) {
+recognition.onresult = (event: any) => {
   const current = event.resultIndex;
 
   const transcript = event.results[current][0].transcript;
@@ -36,6 +44,13 @@ function readOutLoud(message: any) {
   const speech = new SpeechSynthesisUtterance();
   voiceSetup(speech, voices);
   responseFunc(message, speech);
+
+  convoLog.push(`Orson: ${message}`, `Bot: ${speech.text}`);
+  log.push(speech.text);
+
+  console.log(log);
+  console.log(convoLog);
+  console.log(moodLevels.moodLevel);
 
   window.speechSynthesis.speak(speech);
   setTimeout(() => {

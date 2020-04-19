@@ -6,13 +6,20 @@ const MySpeechRecognition = window.webkitSpeechRecognition;
 const recognition = new MySpeechRecognition();
 let voices;
 setup();
-recognition.onstart = function () {
+let log = [];
+let convoLog = [];
+export let moodLevels = {
+    moodLevel: 0,
+};
+let recentMoodLog = [0, 0, 0];
+let recentMood = 0;
+recognition.onstart = () => {
     console.log("listening");
     setTimeout(() => {
         recognition.start();
     }, 6000);
 };
-recognition.onresult = function (event) {
+recognition.onresult = (event) => {
     const current = event.resultIndex;
     const transcript = event.results[current][0].transcript;
     speechToText.textContent = transcript;
@@ -26,6 +33,11 @@ function readOutLoud(message) {
     const speech = new SpeechSynthesisUtterance();
     voiceSetup(speech, voices);
     responseFunc(message, speech);
+    convoLog.push(`Orson: ${message}`, `Bot: ${speech.text}`);
+    log.push(speech.text);
+    console.log(log);
+    console.log(convoLog);
+    console.log(moodLevels.moodLevel);
     window.speechSynthesis.speak(speech);
     setTimeout(() => {
         recognition.start();
