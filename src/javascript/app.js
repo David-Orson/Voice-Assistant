@@ -14,8 +14,6 @@ export let moodLevels = {
     recentMood: 0,
     recentMoodLog: [0, 0, 0],
 };
-/* export let listLog: any = []; */
-export let indexer = 0;
 export let todoObj = {
     trash: "trash",
 };

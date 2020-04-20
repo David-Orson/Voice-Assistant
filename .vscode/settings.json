@@ -1,11 +1,20 @@
 {
   "cSpell.words": [
     "ESNEXT",
+    "Gkpz",
+    "SDKs",
     "convo",
     "downlevel",
     "onresult",
     "sourcemap",
     "tslib",
     "typechecking"
+  ],
+  "cSpell.ignoreWords": [
+    "pxnhrde",
+    "recognition",
+    "riyl",
+    "speech",
+    "webkit"
   ]
 }
