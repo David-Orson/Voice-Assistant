@@ -1,9 +1,9 @@
 import { mood1 /* mood10, moodLess10 */ } from "./mood.js";
 import { moodLevels, todoList } from "../app.js";
 import { objDelete, objRender } from "./renderers.js";
-import { appreciation } from "./responses.js";
+import { appreciation, celebration } from "./responses.js";
 function responseFunc(message, speech, subject, todoObj) {
-    if (anyTimes(message, speech)) {
+    if (anyTimes(message)) {
         anyTime(message, speech);
     }
     else {
@@ -60,9 +60,14 @@ function anyTime(message, speech) {
     if (message.includes("good job") || message.includes("good girl")) {
         speech.text = appreciation[Math.floor(Math.random() * appreciation.length)];
     }
+    else if (message.includes("hell yeah")) {
+        speech.text = celebration[Math.floor(Math.random() * celebration.length)];
+    }
 }
-function anyTimes(message, speech) {
-    if (message.includes("good job") || message.includes("good girl")) {
+function anyTimes(message) {
+    if (message.includes("good job") ||
+        message.includes("good girl") ||
+        message.includes("hell yeah")) {
         return true;
     }
     else
