@@ -1,6 +1,6 @@
 import { mood1 /* mood10, moodLess10 */ } from "./mood.js";
 import { moodLevels, todoList } from "../app.js";
-import { objDelete, objRender } from "./renderers.js";
+import { objDelete, objRender, clearScreen } from "./renderers.js";
 import { appreciation, celebration } from "./responses.js";
 function responseFunc(message, speech, subject, todoObj) {
     if (anyTimes(message)) {
@@ -63,11 +63,15 @@ function anyTime(message, speech) {
     else if (message.includes("hell yeah")) {
         speech.text = celebration[Math.floor(Math.random() * celebration.length)];
     }
+    else if (message.includes("clear screen")) {
+        clearScreen();
+    }
 }
 function anyTimes(message) {
     if (message.includes("good job") ||
         message.includes("good girl") ||
-        message.includes("hell yeah")) {
+        message.includes("hell yeah") ||
+        message.includes("clear screen")) {
         return true;
     }
     else

@@ -12,9 +12,17 @@ export function objRender(todoObj, todoList) {
         title.textContent = Object.keys(todoObj)[i];
         content.textContent = todoObj[Object.keys(todoObj)[i]];
         body.setAttribute("class", `item-${Object.keys(todoObj)[i]}`);
+        ul.setAttribute("class", "rendered");
+        body.setAttribute("class", "rendered");
+        title.setAttribute("class", "rendered");
+        content.setAttribute("class", "rendered");
         body.appendChild(title);
         body.appendChild(content);
         ul.appendChild(body);
         todoList.appendChild(ul);
     }
+}
+export function clearScreen() {
+    let elements = document.querySelectorAll(".rendered");
+    elements.forEach((element) => element.remove());
 }
