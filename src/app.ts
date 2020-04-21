@@ -1,6 +1,7 @@
 import { setup, voiceSetup } from "./components/helpers.js";
 import responseFunc from "./components/conditions.js";
 import { objRender } from "./components/renderers.js";
+import { speak } from "./components/independents.js";
 
 const btn: any = document.querySelector(".talk");
 const speechToText: any = document.querySelector(".speech-to-text");
@@ -9,6 +10,10 @@ export const todoList = document.querySelector(".todo-list");
 
 const MySpeechRecognition = window.webkitSpeechRecognition;
 const recognition = new MySpeechRecognition();
+
+recognition.onend = () => {
+  recognition.start();
+};
 
 let voices: any;
 
@@ -27,9 +32,6 @@ export let todoObj: any = {
 
 recognition.onstart = () => {
   console.log("listening");
-  setTimeout(() => {
-    recognition.start();
-  }, 6000);
 };
 
 recognition.onresult = (event: any) => {
@@ -44,7 +46,10 @@ recognition.onresult = (event: any) => {
 
 btn.addEventListener("click", () => {
   recognition.start();
+  speak(voices);
 });
+
+// random interjections
 
 export let subject: any = [];
 
@@ -65,9 +70,6 @@ function readOutLoud(message: any) {
   console.log(todoObj);
 
   window.speechSynthesis.speak(speech);
-  setTimeout(() => {
-    recognition.start();
-  }, 1000);
 }
 
 // ToDo

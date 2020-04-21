@@ -1,7 +1,7 @@
 import { mood1 /* mood10, moodLess10 */ } from "./mood.js";
 import { moodLevels, todoList, subject, todoObj } from "../app.js";
 import { objDelete, objRender, clearScreen } from "./renderers.js";
-import { appreciation, celebration } from "./responses.js";
+import { appreciation, celebration, unknowns } from "./responses.js";
 
 function responseFunc(message: any, speech: any, subject: any, todoObj: any) {
   if (anyTimes(message)) {
@@ -10,7 +10,7 @@ function responseFunc(message: any, speech: any, subject: any, todoObj: any) {
     if (subject[0] == "list") {
       listConvo(message, speech, subject, todoObj);
     } else {
-      if (message.includes("how are you") || message.includes("car")) {
+      if (message.includes("how are you")) {
         let response: any;
         mood1();
         if (moodLevels.moodLevel > 1) {
@@ -27,8 +27,11 @@ function responseFunc(message: any, speech: any, subject: any, todoObj: any) {
       } else if (message.includes("delete list item")) {
         objDelete(message, todoObj);
         speech.text = "deleted";
+      } else if (message.includes("Scarlett")) {
+        speech.text = "yes?";
+        speech.rate = 3;
       } else {
-        speech.text = "I don't know what you said";
+        speech.text = unknowns[Math.floor(Math.random() * unknowns.length)];
       }
     }
   }
@@ -45,6 +48,9 @@ function listConvo(message: any, speech: any, subject: any, todoObj: any) {
   } else if (message.includes("show me")) {
     objRender(todoObj, todoList);
     speech.text = "sure";
+  } else if (message.includes("Scarlett")) {
+    speech.text = "yes?";
+    speech.rate = 3;
   } else {
     speech.text = "lets finish the subject";
   }
