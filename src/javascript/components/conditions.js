@@ -1,5 +1,5 @@
 import { mood1 /* mood10, moodLess10 */ } from "./mood.js";
-import { moodLevels, todoList } from "../app.js";
+import { moodLevels, todoList, subject } from "../app.js";
 import { objDelete, objRender, clearScreen } from "./renderers.js";
 import { appreciation, celebration } from "./responses.js";
 function responseFunc(message, speech, subject, todoObj) {
@@ -66,12 +66,27 @@ function anyTime(message, speech) {
     else if (message.includes("clear screen")) {
         clearScreen();
     }
+    else if (message.includes("change the subject to")) {
+        subject.push(message.slice(22));
+        speech.text = `sure, lets talk about ${message.slice(22)}`;
+    }
+    else if (message.includes("let's talk about")) {
+        subject.push(message.slice(17));
+        speech.text = `sure, lets talk about ${message.slice(17)}`;
+    }
+    else if (message.includes("clear subject")) {
+        subject.pop();
+        speech.text = "sure, let's move on";
+    }
 }
 function anyTimes(message) {
     if (message.includes("good job") ||
         message.includes("good girl") ||
         message.includes("hell yeah") ||
-        message.includes("clear screen")) {
+        message.includes("clear screen") ||
+        message.includes("change the subject to") ||
+        message.includes("let's talk about") ||
+        message.includes("clear subject")) {
         return true;
     }
     else
